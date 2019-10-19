@@ -92,6 +92,11 @@
                                     <constraint firstItem="Ztl-oz-oth" firstAttribute="top" secondItem="0mV-m8-0IA" secondAttribute="top" id="u8t-L4-LQB"/>
                                     <constraint firstAttribute="trailing" secondItem="pcs-kL-J6Z" secondAttribute="trailing" constant="20" id="yXK-N0-cyn"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="authorLabel" destination="2i6-Pa-bAA" id="bXv-5D-Pnc"/>
+                                    <outlet property="photoImageview" destination="rzy-u1-QfC" id="hfu-w2-rnv"/>
+                                    <outlet property="tagsLabel" destination="pcs-kL-J6Z" id="Lzp-mV-ycW"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

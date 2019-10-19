@@ -95,9 +95,8 @@ class PhotoViewController: UICollectionViewController {
   //      }
   //    }
   //  }
-
-// MARK: - Tableview delegate
-
+  
+  // MARK: - CollectionView delegate
   
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if collectionView.contentOffset.y < 0 ||
@@ -109,7 +108,7 @@ class PhotoViewController: UICollectionViewController {
     let springParameters: UISpringTimingParameters = UISpringTimingParameters(dampingRatio: dampingRatio, initialVelocity: initialVelocity)
     let animator = UIViewPropertyAnimator(duration: 0.5, timingParameters: springParameters)
     
-    self.view.isUserInteractionEnabled = false
+    view.isUserInteractionEnabled = false
     
     if let selectedCell = expandedCell {
       isStatusBarHidden = false
@@ -149,19 +148,20 @@ class PhotoViewController: UICollectionViewController {
     animator.addAnimations {
       self.setNeedsStatusBarAppearanceUpdate()
     }
-    
     animator.addCompletion { _ in
       self.view.isUserInteractionEnabled = true
     }
-    
     animator.startAnimation()
   }
-
-// MARK: - TableView DataSource
-
+  
+  // MARK: - CollectionView DataSource
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableCell", for: indexPath)
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableCell", for: indexPath) as! ExpandableCell
+    if let photo = viewModel.fetchObjectAtIndex(index: indexPath) {
+      cell.setPhotoCellWith(photo: photo)
+    }
+    return cell
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -175,9 +175,9 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     
-    if type == NSFetchedResultsChangeType.insert {
+    switch type {
+    case .insert:
       print("Insert Object: \(String(describing: newIndexPath))")
-      
       blockOperations.append(
         BlockOperation(block: { [weak self] in
           if let self = self {
@@ -185,7 +185,8 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
           }
         })
       )
-    } else if type == NSFetchedResultsChangeType.update {
+      break
+    case .update:
       print("Update Object: \(String(describing: indexPath))")
       blockOperations.append(
         BlockOperation(block: { [weak self] in
@@ -194,9 +195,9 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
           }
         })
       )
-    } else if type == NSFetchedResultsChangeType.move {
+      break
+    case .move:
       print("Move Object: \(String(describing: indexPath))")
-      
       blockOperations.append(
         BlockOperation(block: { [weak self] in
           if let self = self {
@@ -204,9 +205,9 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
           }
         })
       )
-    } else if type == NSFetchedResultsChangeType.delete {
+      break
+    case .delete:
       print("Delete Object: \(String(describing: indexPath))")
-      
       blockOperations.append(
         BlockOperation(block: { [weak self] in
           if let self = self {
@@ -214,6 +215,9 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
           }
         })
       )
+      break
+    @unknown default:
+      fatalError()
     }
   }
   
