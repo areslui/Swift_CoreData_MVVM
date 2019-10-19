@@ -11,7 +11,6 @@ import CoreData
 
 class PhotoViewController: UICollectionViewController {
   
-  //  var photoIndexPath = IndexPath()
   var blockOperations: [BlockOperation] = []
   private var hiddenCells: [ExpandableCell] = []
   private var expandedCell: ExpandableCell?
@@ -82,19 +81,6 @@ class PhotoViewController: UICollectionViewController {
       }
     }
   }
-  
-  //  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-  //    if segue.identifier == "showPhotDetail" {
-  //      let vc = segue.destination as! PhotoDetailViewController
-  //      let photoInfo = viewModel.fetchObjectAtIndex(index: photoIndexPath)
-  //      if let url =  photoInfo?.mediaURL {
-  //        vc.imageUrl = url
-  //      }
-  //      if let text = photoInfo?.tags {
-  //        vc.detailText = text
-  //      }
-  //    }
-  //  }
   
   // MARK: - CollectionView delegate
   
