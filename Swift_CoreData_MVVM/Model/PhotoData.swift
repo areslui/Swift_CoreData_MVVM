@@ -9,13 +9,13 @@
 import Foundation
 
 struct PhotoData {
-  let photoArray: [[String : AnyObject]]
+  let photoArray: [[String : Any]]
 }
 
 extension PhotoData: Parsable {
   
-  static func parseObject(dictionary: [String : AnyObject]) -> Result<PhotoData, ErrorResult> {
-    if let ary = dictionary["items"] as? [[String : AnyObject]] {
+  static func parseObject(dictionary: [String : Any]) -> Result<PhotoData, ErrorResult> {
+    if let ary = dictionary["items"] as? [[String : Any]] {
       
       let photoData = PhotoData(photoArray: ary)
       return Result.Success(photoData)

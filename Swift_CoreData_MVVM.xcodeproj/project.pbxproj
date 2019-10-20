@@ -18,7 +18,6 @@
 		3B6D4B26235AD38C004FDE77 /* Swift_CoreData_MVVMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B25235AD38C004FDE77 /* Swift_CoreData_MVVMUITests.swift */; };
 		3B6D4B35235AD4E7004FDE77 /* Expandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B34235AD4E7004FDE77 /* Expandable.swift */; };
 		3B6D4B38235AD520004FDE77 /* ExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B37235AD520004FDE77 /* ExpandableCell.swift */; };
-		3B6D4B3F235AD74B004FDE77 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B3E235AD74B004FDE77 /* CoreDataManager.swift */; };
 		3B6D4B45235AD8C5004FDE77 /* FetchDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B44235AD8C5004FDE77 /* FetchDataController.swift */; };
 		3B6D4B47235AD8FD004FDE77 /* InternetMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B46235AD8FD004FDE77 /* InternetMonitor.swift */; };
 		3B6D4B4C235AD94C004FDE77 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B4B235AD94C004FDE77 /* RequestHandler.swift */; };
@@ -69,7 +68,6 @@
 		3B6D4B27235AD38C004FDE77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B6D4B34235AD4E7004FDE77 /* Expandable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expandable.swift; sourceTree = "<group>"; };
 		3B6D4B37235AD520004FDE77 /* ExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableCell.swift; sourceTree = "<group>"; };
-		3B6D4B3E235AD74B004FDE77 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		3B6D4B44235AD8C5004FDE77 /* FetchDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDataController.swift; sourceTree = "<group>"; };
 		3B6D4B46235AD8FD004FDE77 /* InternetMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetMonitor.swift; sourceTree = "<group>"; };
 		3B6D4B4B235AD94C004FDE77 /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 		3B6D4B3C235AD6AB004FDE77 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3B6D4B3E235AD74B004FDE77 /* CoreDataManager.swift */,
 				3BB6A827235AF24F00D776FE /* PhotoData.swift */,
 			);
 			path = Model;
@@ -392,7 +389,6 @@
 				3B6D4B5A235ADA5E004FDE77 /* PhotoDataSource.swift in Sources */,
 				3B6D4B4C235AD94C004FDE77 /* RequestHandler.swift in Sources */,
 				3B6D4B03235AD388004FDE77 /* SceneDelegate.swift in Sources */,
-				3B6D4B3F235AD74B004FDE77 /* CoreDataManager.swift in Sources */,
 				3B6D4B38235AD520004FDE77 /* ExpandableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
