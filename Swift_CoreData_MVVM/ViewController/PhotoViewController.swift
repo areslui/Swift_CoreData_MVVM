@@ -153,6 +153,13 @@ class PhotoViewController: UICollectionViewController {
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return viewModel.fetchCountForView()
   }
+  
+  // MARK: - Deinit
+  
+  deinit {
+    blockOperations.forEach { $0.cancel() }
+    blockOperations.removeAll(keepingCapacity: false)
+  }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -162,57 +169,45 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     
     switch type {
+      
     case .insert:
-      print("Insert Object: \(String(describing: newIndexPath))")
-      blockOperations.append(
-        BlockOperation(block: { [weak self] in
-          if let self = self {
-            self.collectionView.insertItems(at: [newIndexPath!])
-          }
-        })
-      )
-      break
+      guard let newIndexPath = newIndexPath else { return }
+      let op = BlockOperation { [weak self] in
+        self?.collectionView.insertItems(at: [(newIndexPath as IndexPath)])
+      }
+      blockOperations.append(op)
+      
     case .update:
-      print("Update Object: \(String(describing: indexPath))")
-      blockOperations.append(
-        BlockOperation(block: { [weak self] in
-          if let self = self {
-            self.collectionView.reloadItems(at: [indexPath!])
-          }
-        })
-      )
-      break
+      guard let newIndexPath = newIndexPath else { return }
+      let op = BlockOperation { [weak self] in
+        self?.collectionView.reloadItems(at: [(newIndexPath as IndexPath)])
+      }
+      blockOperations.append(op)
+      
     case .move:
-      print("Move Object: \(String(describing: indexPath))")
-      blockOperations.append(
-        BlockOperation(block: { [weak self] in
-          if let self = self {
-            self.collectionView.moveItem(at: indexPath!, to: newIndexPath!)
-          }
-        })
-      )
-      break
+      guard let indexPath = indexPath else { return }
+      guard let newIndexPath = newIndexPath else { return }
+      let op = BlockOperation { [weak self] in
+        self?.collectionView.moveItem(at: indexPath as IndexPath, to: newIndexPath as IndexPath)
+      }
+      blockOperations.append(op)
+      
     case .delete:
-      print("Delete Object: \(String(describing: indexPath))")
-      blockOperations.append(
-        BlockOperation(block: { [weak self] in
-          if let self = self {
-            self.collectionView.deleteItems(at: [indexPath!])
-          }
-        })
-      )
-      break
+      guard let indexPath = indexPath else { return }
+      let op = BlockOperation { [weak self] in
+        self?.collectionView.deleteItems(at: [(indexPath as IndexPath)])
+      }
+      blockOperations.append(op)
+      
     @unknown default:
       fatalError()
     }
   }
   
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    collectionView.performBatchUpdates({ () -> Void in
-      for operation: BlockOperation in self.blockOperations {
-        operation.start()
-      }
-    }, completion: { (finished) -> Void in
+    collectionView.performBatchUpdates({
+      self.blockOperations.forEach { $0.start() }
+    }, completion: { finished in
       self.blockOperations.removeAll(keepingCapacity: false)
     })
   }
