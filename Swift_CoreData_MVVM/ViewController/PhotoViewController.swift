@@ -37,18 +37,9 @@ class PhotoViewController: UICollectionViewController {
     
     initView()
     initBinding()
-    start()
     viewModel.dataSource?.fetchDataController?.fetchHandler?.delegate = self
     errorHandler()
-  }
-  
-  func start() {
-    viewModel.isLoading.value = true
-    viewModel.isCollectionViewHidden.value = true
-    updateTableContent { [weak self] in
-      self?.viewModel.isLoading.value = false
-      self?.viewModel.isCollectionViewHidden.value = false
-    }
+    updateTableContent()
   }
   
   func initView() {
@@ -68,7 +59,7 @@ class PhotoViewController: UICollectionViewController {
     }
   }
   
-  private func updateTableContent(completion: @escaping () -> ()) {
+  private func updateTableContent() {
     
     viewModel.performFetch()
     
@@ -88,7 +79,6 @@ class PhotoViewController: UICollectionViewController {
           errorHandler(error)
         }
       }
-      completion()
     })
   }
   

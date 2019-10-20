@@ -30,19 +30,23 @@ class PhotoViewModel {
       errorHandling?(.custom(string: "Sevice missing!!!"))
       return
     }
-    service.getDataWith { (result) in
+    isLoading.value = true
+    isCollectionViewHidden.value = true
+    service.getDataWith { [weak self] (result) in
       switch result {
       case .Success(let data):
-        self.clearData()
-        self.saveInCoreDataWith(array: data.photoArray)
+        self?.clearData()
+        self?.saveInCoreDataWith(array: data.photoArray)
         completion(true)
       case .Error(let message):
         DispatchQueue.main.async {
-          self.errorHandling?(message)
+          self?.errorHandling?(message)
           print(message)
           completion(false)
         }
       }
+      self?.isLoading.value = false
+      self?.isCollectionViewHidden.value = false
     }
   }
   

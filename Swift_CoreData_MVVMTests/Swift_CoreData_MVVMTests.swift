@@ -32,3 +32,10 @@ class Swift_CoreData_MVVMTests: XCTestCase {
     }
 
 }
+
+final class MockPhotoApiService: PhotoApiServiceProtocol {
+  
+  func getDataWith(completion: @escaping (Result<PhotoData, ErrorResult>) -> Void) {
+    
+  }
+}
