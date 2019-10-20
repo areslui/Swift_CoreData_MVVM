@@ -139,7 +139,6 @@
 				3B6D4B3D235AD736004FDE77 /* ViewModel */,
 				3B6D4B3C235AD6AB004FDE77 /* Model */,
 				3B6D4B36235AD50E004FDE77 /* View */,
-				3B6D4B33235AD4CC004FDE77 /* Protocol */,
 				3B6D4B00235AD388004FDE77 /* AppDelegate.swift */,
 				3B6D4B02235AD388004FDE77 /* SceneDelegate.swift */,
 				3B6D4B06235AD388004FDE77 /* Main.storyboard */,
@@ -169,18 +168,11 @@
 			path = Swift_CoreData_MVVMUITests;
 			sourceTree = "<group>";
 		};
-		3B6D4B33235AD4CC004FDE77 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				3B6D4B34235AD4E7004FDE77 /* Expandable.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
 		3B6D4B36235AD50E004FDE77 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3B6D4B37235AD520004FDE77 /* ExpandableCell.swift */,
+				3B6D4B34235AD4E7004FDE77 /* Expandable.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

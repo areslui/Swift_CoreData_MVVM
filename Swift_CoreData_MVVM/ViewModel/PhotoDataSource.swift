@@ -10,16 +10,17 @@ import UIKit
 import CoreData
 
 class PhotoDataSource: NSObject {
-    
+  
   private var coreDataManager: CoreDataManager?
   var fetchDataController: FetchDataController?
-    
+  
   init(_ fetchDataController: FetchDataController = FetchDataController()) {
     self.fetchDataController = fetchDataController
   }
   
   func getViewContext() -> NSManagedObjectContext? {
-    return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    return viewContext
   }
   
   func saveDataWithViewContext() {
