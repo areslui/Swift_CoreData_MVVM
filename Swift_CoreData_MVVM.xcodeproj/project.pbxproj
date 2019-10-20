@@ -135,19 +135,16 @@
 		3B6D4AFF235AD388004FDE77 /* Swift_CoreData_MVVM */ = {
 			isa = PBXGroup;
 			children = (
+				3B6D4B00235AD388004FDE77 /* AppDelegate.swift */,
+				3B6D4B02235AD388004FDE77 /* SceneDelegate.swift */,
 				3B6D4B48235AD924004FDE77 /* Services */,
 				3B6D4B43235AD8B9004FDE77 /* Helper */,
 				3B6D4B42235AD877004FDE77 /* ViewController */,
 				3B6D4B3D235AD736004FDE77 /* ViewModel */,
 				3B6D4B3C235AD6AB004FDE77 /* Model */,
 				3B6D4B36235AD50E004FDE77 /* View */,
-				3B6D4B00235AD388004FDE77 /* AppDelegate.swift */,
-				3B6D4B02235AD388004FDE77 /* SceneDelegate.swift */,
-				3B6D4B06235AD388004FDE77 /* Main.storyboard */,
 				3B6D4B0C235AD38C004FDE77 /* Assets.xcassets */,
-				3B6D4B0E235AD38C004FDE77 /* LaunchScreen.storyboard */,
 				3B6D4B11235AD38C004FDE77 /* Info.plist */,
-				3B6D4B09235AD388004FDE77 /* Swift_CoreData_MVVM.xcdatamodeld */,
 			);
 			path = Swift_CoreData_MVVM;
 			sourceTree = "<group>";
@@ -173,6 +170,7 @@
 		3B6D4B36235AD50E004FDE77 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3BA00852235CB03600B2915C /* Storyboards */,
 				3B6D4B37235AD520004FDE77 /* ExpandableCell.swift */,
 				3B6D4B34235AD4E7004FDE77 /* Expandable.swift */,
 				3BA00812235C62B500B2915C /* ActivityView.swift */,
@@ -183,7 +181,7 @@
 		3B6D4B3C235AD6AB004FDE77 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3BB6A827235AF24F00D776FE /* PhotoData.swift */,
+				3B6D4B09235AD388004FDE77 /* Swift_CoreData_MVVM.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,6 +211,7 @@
 				3B6D4B5B235ADAE6004FDE77 /* UIImageViewExt.swift */,
 				3BB6A829235AF28D00D776FE /* ParserHelper.swift */,
 				3B53A100235C393000C37CED /* Observable.swift */,
+				3BB6A827235AF24F00D776FE /* PhotoData.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -244,6 +243,15 @@
 				3B6D4B53235ADA03004FDE77 /* ErrorResult.swift */,
 			);
 			path = Result;
+			sourceTree = "<group>";
+		};
+		3BA00852235CB03600B2915C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				3B6D4B0E235AD38C004FDE77 /* LaunchScreen.storyboard */,
+				3B6D4B06235AD388004FDE77 /* Main.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
