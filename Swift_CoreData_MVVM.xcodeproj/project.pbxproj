@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B53A101235C393000C37CED /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B53A100235C393000C37CED /* Observable.swift */; };
+		3B53A103235C39B500C37CED /* PhotoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B53A102235C39B500C37CED /* PhotoListViewModel.swift */; };
 		3B6D4B01235AD388004FDE77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B00235AD388004FDE77 /* AppDelegate.swift */; };
 		3B6D4B03235AD388004FDE77 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B02235AD388004FDE77 /* SceneDelegate.swift */; };
 		3B6D4B05235AD388004FDE77 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B04235AD388004FDE77 /* PhotoViewController.swift */; };
@@ -51,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B53A100235C393000C37CED /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		3B53A102235C39B500C37CED /* PhotoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewModel.swift; sourceTree = "<group>"; };
 		3B6D4AFD235AD388004FDE77 /* Swift_CoreData_MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swift_CoreData_MVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6D4B00235AD388004FDE77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B6D4B02235AD388004FDE77 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 			children = (
 				3B6D4B57235ADA4F004FDE77 /* PhotoViewModel.swift */,
 				3B6D4B59235ADA5E004FDE77 /* PhotoDataSource.swift */,
+				3B53A102235C39B500C37CED /* PhotoListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				3B6D4B46235AD8FD004FDE77 /* InternetMonitor.swift */,
 				3B6D4B5B235ADAE6004FDE77 /* UIImageViewExt.swift */,
 				3BB6A829235AF28D00D776FE /* ParserHelper.swift */,
+				3B53A100235C393000C37CED /* Observable.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -384,9 +390,11 @@
 				3B6D4B05235AD388004FDE77 /* PhotoViewController.swift in Sources */,
 				3B6D4B01235AD388004FDE77 /* AppDelegate.swift in Sources */,
 				3B6D4B5C235ADAE6004FDE77 /* UIImageViewExt.swift in Sources */,
+				3B53A103235C39B500C37CED /* PhotoListViewModel.swift in Sources */,
 				3B6D4B45235AD8C5004FDE77 /* FetchDataController.swift in Sources */,
 				3B6D4B56235ADA29004FDE77 /* PhotoApiService.swift in Sources */,
 				3B6D4B5A235ADA5E004FDE77 /* PhotoDataSource.swift in Sources */,
+				3B53A101235C393000C37CED /* Observable.swift in Sources */,
 				3B6D4B4C235AD94C004FDE77 /* RequestHandler.swift in Sources */,
 				3B6D4B03235AD388004FDE77 /* SceneDelegate.swift in Sources */,
 				3B6D4B38235AD520004FDE77 /* ExpandableCell.swift in Sources */,
