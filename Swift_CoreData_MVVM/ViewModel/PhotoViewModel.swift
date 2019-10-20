@@ -16,6 +16,8 @@ class PhotoViewModel {
   private var apiService: PhotoApiServiceProtocol?
   var checkInternetHandling: ((Bool?) -> Void)?
   var errorHandling: ((ErrorResult?) -> Void)?
+  let isLoading = Observable<Bool>(value: false)
+  let isCollectionViewHidden = Observable<Bool>(value: false)
   
   init(dataSource: PhotoDataSource = PhotoDataSource(),
        apiService: PhotoApiServiceProtocol = PhotoApiService()) {
@@ -24,12 +26,10 @@ class PhotoViewModel {
   }
   
   func fetchPhotoData(completion: @escaping (_ sucess: Bool) -> ()) {
-    
     guard let service = apiService else {
       errorHandling?(.custom(string: "Sevice missing!!!"))
       return
     }
-    
     service.getDataWith { (result) in
       switch result {
       case .Success(let data):

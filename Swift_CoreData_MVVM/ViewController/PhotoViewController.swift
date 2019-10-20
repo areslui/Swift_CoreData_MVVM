@@ -19,10 +19,21 @@ class PhotoViewController: UICollectionViewController {
   override var prefersStatusBarHidden: Bool {
     return isStatusBarHidden
   }
-  
+
   lazy var viewModel: PhotoViewModel = {
-    let viewModel = PhotoViewModel()
-    return viewModel
+    return PhotoViewModel()
+  }()
+  
+  lazy var loadingIdicator: UIActivityIndicatorView = {
+    let indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+    indicator.translatesAutoresizingMaskIntoConstraints = false
+    indicator.hidesWhenStopped = true
+    self.view.addSubview(indicator)
+    NSLayoutConstraint.activate([
+      indicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+      indicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+    ])
+    return indicator
   }()
   
   override func viewDidLoad() {
@@ -31,12 +42,41 @@ class PhotoViewController: UICollectionViewController {
     // for test
     view.accessibilityIdentifier = "onboardingView"
     collectionView.accessibilityIdentifier = "onboardingTableView"
+    
+    initView()
+    initBinding()
+    start()
     viewModel.dataSource?.fetchDataController?.fetchHandler?.delegate = self
     errorHandler()
-    updateTableContent()
   }
   
-  func updateTableContent() {
+  func start() {
+    viewModel.isLoading.value = true
+    viewModel.isCollectionViewHidden.value = true
+    updateTableContent { [weak self] in
+      self?.viewModel.isLoading.value = false
+      self?.viewModel.isCollectionViewHidden.value = false
+    }
+  }
+
+  func initView() {
+      view.backgroundColor = .white
+  }
+
+  func initBinding() {
+      viewModel.isCollectionViewHidden.addObserver { [weak self] (isHidden) in
+          self?.collectionView.isHidden = isHidden
+      }
+      viewModel.isLoading.addObserver { [weak self] (isLoading) in
+          if isLoading {
+              self?.loadingIdicator.startAnimating()
+          } else {
+              self?.loadingIdicator.stopAnimating()
+          }
+      }
+  }
+  
+  private func updateTableContent(completion: @escaping () -> ()) {
     
     viewModel.performFetch()
     
@@ -47,13 +87,7 @@ class PhotoViewController: UICollectionViewController {
         if hasInternet {
           self.viewModel.fetchPhotoData(completion: { (success) in
             if success {
-              if Thread.isMainThread {
-                self.collectionView.reloadData()
-              } else {
-                DispatchQueue.main.async {
-                  self.collectionView.reloadData()
-                }
-              }
+              self.reloadCollectionViewInMainThread()
             }
           })
         }
@@ -62,18 +96,25 @@ class PhotoViewController: UICollectionViewController {
           errorHandler(error)
         }
       }
+      completion()
     })
-    print("COUNT FETCHED FIRST: \(String(describing: viewModel.fetchCountForView()))")
+  }
+  
+  private func reloadCollectionViewInMainThread() {
+    if Thread.isMainThread {
+      self.collectionView.reloadData()
+    } else {
+      DispatchQueue.main.async {
+        self.collectionView.reloadData()
+      }
+    }
   }
   
   func errorHandler() {
-    // error handler
     viewModel.errorHandling = { [weak self] errorMessage in
-      
       DispatchQueue.main.async {
         let controller = UIAlertController(title: "Error!!!", message: errorMessage?.value, preferredStyle: .alert)
         controller.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-        
         guard let self = self else {
           return
         }
@@ -153,6 +194,13 @@ class PhotoViewController: UICollectionViewController {
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return viewModel.fetchCountForView()
   }
+  
+  // MARK: - Deinit
+  
+  deinit {
+    blockOperations.forEach { $0.cancel() }
+    blockOperations.removeAll(keepingCapacity: false)
+  }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -162,57 +210,45 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     
     switch type {
+      
     case .insert:
-      print("Insert Object: \(String(describing: newIndexPath))")
-      blockOperations.append(
-        BlockOperation(block: { [weak self] in
-          if let self = self {
-            self.collectionView.insertItems(at: [newIndexPath!])
-          }
-        })
-      )
-      break
+      guard let newIndexPath = newIndexPath else { return }
+      let op = BlockOperation { [weak self] in
+        self?.collectionView.insertItems(at: [(newIndexPath as IndexPath)])
+      }
+      blockOperations.append(op)
+      
     case .update:
-      print("Update Object: \(String(describing: indexPath))")
-      blockOperations.append(
-        BlockOperation(block: { [weak self] in
-          if let self = self {
-            self.collectionView.reloadItems(at: [indexPath!])
-          }
-        })
-      )
-      break
+      guard let newIndexPath = newIndexPath else { return }
+      let op = BlockOperation { [weak self] in
+        self?.collectionView.reloadItems(at: [(newIndexPath as IndexPath)])
+      }
+      blockOperations.append(op)
+      
     case .move:
-      print("Move Object: \(String(describing: indexPath))")
-      blockOperations.append(
-        BlockOperation(block: { [weak self] in
-          if let self = self {
-            self.collectionView.moveItem(at: indexPath!, to: newIndexPath!)
-          }
-        })
-      )
-      break
+      guard let indexPath = indexPath else { return }
+      guard let newIndexPath = newIndexPath else { return }
+      let op = BlockOperation { [weak self] in
+        self?.collectionView.moveItem(at: indexPath as IndexPath, to: newIndexPath as IndexPath)
+      }
+      blockOperations.append(op)
+      
     case .delete:
-      print("Delete Object: \(String(describing: indexPath))")
-      blockOperations.append(
-        BlockOperation(block: { [weak self] in
-          if let self = self {
-            self.collectionView.deleteItems(at: [indexPath!])
-          }
-        })
-      )
-      break
+      guard let indexPath = indexPath else { return }
+      let op = BlockOperation { [weak self] in
+        self?.collectionView.deleteItems(at: [(indexPath as IndexPath)])
+      }
+      blockOperations.append(op)
+      
     @unknown default:
       fatalError()
     }
   }
   
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    collectionView.performBatchUpdates({ () -> Void in
-      for operation: BlockOperation in self.blockOperations {
-        operation.start()
-      }
-    }, completion: { (finished) -> Void in
+    collectionView.performBatchUpdates({
+      self.blockOperations.forEach { $0.start() }
+    }, completion: { finished in
       self.blockOperations.removeAll(keepingCapacity: false)
     })
   }
