@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Parsable {
-  static func parseObject(dictionary: [String: AnyObject]) -> Result<Self, ErrorResult>
+  static func parseObject(dictionary: [String: Any]) -> Result<Self, ErrorResult>
 }
 
 final class ParserHelper {
@@ -17,7 +17,7 @@ final class ParserHelper {
   static func parse<T: Parsable>(data: Data, completion : (Result<T, ErrorResult>) -> Void) {
     
     do {
-      if let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject] {
+      if let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
         
         // init final result
         // check foreach dictionary if parsable

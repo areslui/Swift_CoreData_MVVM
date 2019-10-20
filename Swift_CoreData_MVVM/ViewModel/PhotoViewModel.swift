@@ -63,19 +63,19 @@ class PhotoViewModel {
   
   // MARK: - Data Process
   
-  private func createPhotoEntityFrom(dictionary: [String: AnyObject]) -> NSManagedObject? {
-    guard let context = dataSource?.getViewContext() else { return nil }
-    if let photoEntity = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: context) as? Photo {
-      photoEntity.author = dictionary["author"] as? String
-      photoEntity.tags = dictionary["tags"] as? String
-      let mediaDictionary = dictionary["media"] as? [String: AnyObject]
-      photoEntity.mediaURL = mediaDictionary?["m"] as? String
-      return photoEntity
-    }
-    return nil
+  private func createPhotoEntityFrom(dictionary: [String: Any]) {
+    dataSource?.getViewContext(completion: { (viewContext) in
+      guard let context = viewContext else { return }
+      if let photoEntity = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: context) as? Photo {
+        photoEntity.author = dictionary["author"] as? String
+        photoEntity.tags = dictionary["tags"] as? String
+        let mediaDictionary = dictionary["media"] as? [String: Any]
+        photoEntity.mediaURL = mediaDictionary?["m"] as? String
+      }
+    })
   }
   
-  private func saveInCoreDataWith(array: [[String: AnyObject]]) {
+  private func saveInCoreDataWith(array: [[String: Any]]) {
     _ = array.map{ createPhotoEntityFrom(dictionary: $0) }
     dataSource?.saveDataWithViewContext()
   }
