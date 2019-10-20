@@ -19,10 +19,21 @@ class PhotoViewController: UICollectionViewController {
   override var prefersStatusBarHidden: Bool {
     return isStatusBarHidden
   }
-  
+
   lazy var viewModel: PhotoViewModel = {
-    let viewModel = PhotoViewModel()
-    return viewModel
+    return PhotoViewModel()
+  }()
+  
+  lazy var loadingIdicator: UIActivityIndicatorView = {
+    let indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+    indicator.translatesAutoresizingMaskIntoConstraints = false
+    indicator.hidesWhenStopped = true
+    self.view.addSubview(indicator)
+    NSLayoutConstraint.activate([
+      indicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+      indicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+    ])
+    return indicator
   }()
   
   override func viewDidLoad() {
@@ -31,12 +42,41 @@ class PhotoViewController: UICollectionViewController {
     // for test
     view.accessibilityIdentifier = "onboardingView"
     collectionView.accessibilityIdentifier = "onboardingTableView"
+    
+    initView()
+    initBinding()
+    start()
     viewModel.dataSource?.fetchDataController?.fetchHandler?.delegate = self
     errorHandler()
-    updateTableContent()
   }
   
-  func updateTableContent() {
+  func start() {
+    viewModel.isLoading.value = true
+    viewModel.isCollectionViewHidden.value = true
+    updateTableContent { [weak self] in
+      self?.viewModel.isLoading.value = false
+      self?.viewModel.isCollectionViewHidden.value = false
+    }
+  }
+
+  func initView() {
+      view.backgroundColor = .white
+  }
+
+  func initBinding() {
+      viewModel.isCollectionViewHidden.addObserver { [weak self] (isHidden) in
+          self?.collectionView.isHidden = isHidden
+      }
+      viewModel.isLoading.addObserver { [weak self] (isLoading) in
+          if isLoading {
+              self?.loadingIdicator.startAnimating()
+          } else {
+              self?.loadingIdicator.stopAnimating()
+          }
+      }
+  }
+  
+  private func updateTableContent(completion: @escaping () -> ()) {
     
     viewModel.performFetch()
     
@@ -47,13 +87,7 @@ class PhotoViewController: UICollectionViewController {
         if hasInternet {
           self.viewModel.fetchPhotoData(completion: { (success) in
             if success {
-              if Thread.isMainThread {
-                self.collectionView.reloadData()
-              } else {
-                DispatchQueue.main.async {
-                  self.collectionView.reloadData()
-                }
-              }
+              self.reloadCollectionViewInMainThread()
             }
           })
         }
@@ -62,18 +96,25 @@ class PhotoViewController: UICollectionViewController {
           errorHandler(error)
         }
       }
+      completion()
     })
-    print("COUNT FETCHED FIRST: \(String(describing: viewModel.fetchCountForView()))")
+  }
+  
+  private func reloadCollectionViewInMainThread() {
+    if Thread.isMainThread {
+      self.collectionView.reloadData()
+    } else {
+      DispatchQueue.main.async {
+        self.collectionView.reloadData()
+      }
+    }
   }
   
   func errorHandler() {
-    // error handler
     viewModel.errorHandling = { [weak self] errorMessage in
-      
       DispatchQueue.main.async {
         let controller = UIAlertController(title: "Error!!!", message: errorMessage?.value, preferredStyle: .alert)
         controller.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-        
         guard let self = self else {
           return
         }
