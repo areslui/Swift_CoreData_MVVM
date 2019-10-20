@@ -19,21 +19,13 @@ class PhotoViewController: UICollectionViewController {
   override var prefersStatusBarHidden: Bool {
     return isStatusBarHidden
   }
-
+  
   lazy var viewModel: PhotoViewModel = {
     return PhotoViewModel()
   }()
   
-  lazy var loadingIdicator: UIActivityIndicatorView = {
-    let indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-    indicator.translatesAutoresizingMaskIntoConstraints = false
-    indicator.hidesWhenStopped = true
-    self.view.addSubview(indicator)
-    NSLayoutConstraint.activate([
-      indicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-      indicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-    ])
-    return indicator
+  lazy var activityView: ActivityView = {
+    return ActivityView(loadingView: view)
   }()
   
   override func viewDidLoad() {
@@ -58,22 +50,22 @@ class PhotoViewController: UICollectionViewController {
       self?.viewModel.isCollectionViewHidden.value = false
     }
   }
-
+  
   func initView() {
-      view.backgroundColor = .white
+    view.backgroundColor = .white
   }
-
+  
   func initBinding() {
-      viewModel.isCollectionViewHidden.addObserver { [weak self] (isHidden) in
-          self?.collectionView.isHidden = isHidden
+    viewModel.isCollectionViewHidden.addObserver { [weak self] (isHidden) in
+      self?.collectionView.isHidden = isHidden
+    }
+    viewModel.isLoading.addObserver { [weak self] (isLoading) in
+      if isLoading {
+        self?.activityView.loadingIdicator.startAnimating()
+      } else {
+        self?.activityView.loadingIdicator.stopAnimating()
       }
-      viewModel.isLoading.addObserver { [weak self] (isLoading) in
-          if isLoading {
-              self?.loadingIdicator.startAnimating()
-          } else {
-              self?.loadingIdicator.stopAnimating()
-          }
-      }
+    }
   }
   
   private func updateTableContent(completion: @escaping () -> ()) {
