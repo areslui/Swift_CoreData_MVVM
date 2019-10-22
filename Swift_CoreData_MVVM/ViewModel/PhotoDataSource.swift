@@ -51,7 +51,7 @@ class PhotoDataSource: NSObject {
       let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
       do {
         let objects = try context.fetch(fetchRequest) as? [NSManagedObject]
-        _ = objects.map{$0.map{context.delete($0)}}
+        _ = objects.map{ $0.map{ context.delete($0) } }
         self.saveDataWithViewContext()
       } catch let error {
         debugPrint("\(type(of: self)): \(#function): ERROR DELETING : \(error)")
