@@ -22,6 +22,7 @@ final class RequestService {
     InternetMonitor().checkInternetConnection { (result) in
       switch result {
       case .Success(_):
+        debugPrint("\(type(of: self)): \(#function): has internet connection")
         break
       case .Error(let error):
         completion(.Error(.network(string: "no internet!" + error.localizedDescription)))
