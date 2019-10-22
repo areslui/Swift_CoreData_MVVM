@@ -42,7 +42,6 @@ class ExpandableCell: UICollectionViewCell, Expandable {
     contentView.backgroundColor = .white
     contentView.layer.cornerRadius = 10
     contentView.layer.masksToBounds = true
-    
     layer.masksToBounds = false
     layer.shadowColor = UIColor.black.cgColor
     layer.shadowOpacity = 0.3
@@ -65,17 +64,13 @@ class ExpandableCell: UICollectionViewCell, Expandable {
       let offset = currentY - frameOfSelectedCell.maxY
       newY = collectionView.contentOffset.y + collectionView.frame.height + offset
     }
-    
     frame.origin.y = newY
-    
     layoutIfNeeded()
   }
   
   func show() {
     frame = initialFrame ?? frame
-    
     initialFrame = nil
-    
     layoutIfNeeded()
   }
   
@@ -84,21 +79,16 @@ class ExpandableCell: UICollectionViewCell, Expandable {
   func expand(in collectionView: UICollectionView) {
     initialFrame = frame
     initialCornerRadius = contentView.layer.cornerRadius
-    
     contentView.layer.cornerRadius = 0
     frame = CGRect(x: 0, y: collectionView.contentOffset.y, width: collectionView.frame.width, height: collectionView.frame.height)
-    
     layoutIfNeeded()
   }
   
   func collapse() {
     contentView.layer.cornerRadius = initialCornerRadius ?? contentView.layer.cornerRadius
     frame = initialFrame ?? frame
-    
     initialFrame = nil
     initialCornerRadius = nil
-    
     layoutIfNeeded()
   }
-  
 }

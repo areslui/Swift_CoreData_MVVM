@@ -18,9 +18,7 @@ final class ParserHelper {
     
     do {
       if let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
-        
-        // init final result
-        // check foreach dictionary if parsable
+      
         switch T.parseObject(dictionary: dictionary) {
         case .Error(let error):
           completion(.Error(error))
@@ -30,11 +28,9 @@ final class ParserHelper {
           break
         }
       } else {
-        // not an array
         completion(.Error(.parser(string: "Json data is not an array")))
       }
     } catch {
-      // can't parse json
       completion(.Error(.parser(string: "Error while parsing json data")))
     }
   }

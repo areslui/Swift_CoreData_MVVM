@@ -12,8 +12,8 @@ import UIKit
 
 class PhotoViewModel {
     
-  var dataSource: PhotoDataSource?
   private var apiService: PhotoApiServiceProtocol?
+  var dataSource: PhotoDataSource?
   var errorHandling: ((ErrorResult?) -> Void)?
   let isLoading = Observable<Bool>(value: false)
   let isCollectionViewHidden = Observable<Bool>(value: false)
@@ -24,7 +24,7 @@ class PhotoViewModel {
     self.apiService = apiService
   }
   
-  func fetchPhotoData(completion: @escaping (_ sucess: Bool) -> ()) {
+  func fetchPhotoData(completion: @escaping () -> ()) {
     guard let service = apiService else {
       errorHandling?(.custom(string: "Sevice missing!!!"))
       return
@@ -38,13 +38,12 @@ class PhotoViewModel {
       case .Success(let data):
         self?.clearData()
         self?.saveInCoreDataWith(array: data.photoArray)
-        completion(true)
+        completion()
         
       case .Error(let message):
         DispatchQueue.main.async {
           self?.errorHandling?(message)
-          print(message)
-          completion(false)
+          debugPrint("\(type(of: self)): \(#function): \(message)")
         }
       }
       self?.isLoading.value = false

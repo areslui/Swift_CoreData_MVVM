@@ -29,11 +29,6 @@ class PhotoViewController: UICollectionViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // for test
-    view.accessibilityIdentifier = "onboardingView"
-    collectionView.accessibilityIdentifier = "onboardingCollectionView"
-    
     initView()
     initBinding()
     viewModel.dataSource?.fetchDataController?.fetchHandler?.delegate = self
@@ -59,25 +54,9 @@ class PhotoViewController: UICollectionViewController {
   }
   
   private func updateTableContent() {
-    
     viewModel.performFetch()
-    
-    InternetMonitor().checkInternetConnection(completion: { result in
-      
-      switch result {
-      case .Success(let hasInternet):
-        if hasInternet {
-          self.viewModel.fetchPhotoData(completion: { (success) in
-            if success {
-              self.reloadCollectionViewInMainThread()
-            }
-          })
-        }
-      case .Error(let error):
-        if let errorHandler = self.viewModel.errorHandling {
-          errorHandler(error)
-        }
-      }
+    self.viewModel.fetchPhotoData(completion: {
+      self.reloadCollectionViewInMainThread()
     })
   }
   
@@ -177,7 +156,7 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     collectionView.performBatchUpdates({
       self.blockOperations.forEach { $0.start() }
-    }, completion: { finished in
+    }, completion: { (finished) in
       self.blockOperations.removeAll(keepingCapacity: false)
     })
   }
