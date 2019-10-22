@@ -11,32 +11,17 @@ import XCTest
 
 class Swift_CoreData_MVVMTests: XCTestCase {
   
-  var viewModel: PhotoViewModel!
-  var dataSource: PhotoDataSource!
-  fileprivate var service: MockPhotoApiService!
+  var viewController: PhotoViewController!
   
   override func setUp() {
     super.setUp()
-    viewModel = PhotoViewModel(apiService: MockPhotoApiService())
+    viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoViewController") as? PhotoViewController
   }
   
   override func tearDown() {
-    viewModel = nil
+    viewController = nil
     super.tearDown()
   }
-  
-  func testExample() {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-  }
-  
-  func testPerformanceExample() {
-    // This is an example of a performance test case.
-    self.measure {
-      // Put the code you want to measure the time of here.
-    }
-  }
-  
 }
 
 final class MockPhotoApiService: PhotoApiServiceProtocol {
