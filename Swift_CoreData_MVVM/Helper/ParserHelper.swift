@@ -14,7 +14,7 @@ protocol Parsable {
 
 final class ParserHelper {
   
-  static func parse<T: Parsable>(data: Data, completion : (Result<T, ErrorResult>) -> Void) {
+  static func parse<T: Parsable>(data: Data, completion: (Result<T, ErrorResult>) -> Void) {
     
     do {
       if let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {

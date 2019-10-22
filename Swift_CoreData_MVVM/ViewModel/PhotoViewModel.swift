@@ -14,7 +14,6 @@ class PhotoViewModel {
     
   var dataSource: PhotoDataSource?
   private var apiService: PhotoApiServiceProtocol?
-  var checkInternetHandling: ((Bool?) -> Void)?
   var errorHandling: ((ErrorResult?) -> Void)?
   let isLoading = Observable<Bool>(value: false)
   let isCollectionViewHidden = Observable<Bool>(value: false)
@@ -32,12 +31,15 @@ class PhotoViewModel {
     }
     isLoading.value = true
     isCollectionViewHidden.value = true
+    
     service.getDataWith { [weak self] (result) in
+      
       switch result {
       case .Success(let data):
         self?.clearData()
         self?.saveInCoreDataWith(array: data.photoArray)
         completion(true)
+        
       case .Error(let message):
         DispatchQueue.main.async {
           self?.errorHandling?(message)
