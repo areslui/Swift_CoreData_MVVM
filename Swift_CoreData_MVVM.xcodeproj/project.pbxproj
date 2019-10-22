@@ -31,6 +31,7 @@
 		3B6D4B5A235ADA5E004FDE77 /* PhotoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B59235ADA5E004FDE77 /* PhotoDataSource.swift */; };
 		3B6D4B5C235ADAE6004FDE77 /* UIImageViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B5B235ADAE6004FDE77 /* UIImageViewExt.swift */; };
 		3BA00813235C62B500B2915C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA00812235C62B500B2915C /* ActivityView.swift */; };
+		3BA00854235ECC6C00B2915C /* ExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA00853235ECC6C00B2915C /* ExpandableView.swift */; };
 		3BB6A828235AF24F00D776FE /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6A827235AF24F00D776FE /* PhotoData.swift */; };
 		3BB6A82A235AF28D00D776FE /* ParserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6A829235AF28D00D776FE /* ParserHelper.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 		3B6D4B59235ADA5E004FDE77 /* PhotoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDataSource.swift; sourceTree = "<group>"; };
 		3B6D4B5B235ADAE6004FDE77 /* UIImageViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExt.swift; sourceTree = "<group>"; };
 		3BA00812235C62B500B2915C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		3BA00853235ECC6C00B2915C /* ExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableView.swift; sourceTree = "<group>"; };
 		3BB6A827235AF24F00D776FE /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		3BB6A829235AF28D00D776FE /* ParserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +178,7 @@
 				3B6D4B37235AD520004FDE77 /* ExpandableCell.swift */,
 				3B6D4B34235AD4E7004FDE77 /* Expandable.swift */,
 				3BA00812235C62B500B2915C /* ActivityView.swift */,
+				3BA00853235ECC6C00B2915C /* ExpandableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				3B6D4B4C235AD94C004FDE77 /* RequestHandler.swift in Sources */,
 				3BA00813235C62B500B2915C /* ActivityView.swift in Sources */,
 				3B6D4B03235AD388004FDE77 /* SceneDelegate.swift in Sources */,
+				3BA00854235ECC6C00B2915C /* ExpandableView.swift in Sources */,
 				3B6D4B38235AD520004FDE77 /* ExpandableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

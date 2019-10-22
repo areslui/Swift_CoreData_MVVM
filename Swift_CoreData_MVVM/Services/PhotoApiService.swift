@@ -14,7 +14,8 @@ protocol PhotoApiServiceProtocol: class {
 
 final class PhotoApiService: RequestHandler, PhotoApiServiceProtocol {
     
-  private lazy var endPoint: String = { return "https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=cars&nojsoncallback=1#"
+  private lazy var endPoint: String = {
+    return "https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=cars&nojsoncallback=1#"
   }()
   
   private var task: URLSessionTask?
