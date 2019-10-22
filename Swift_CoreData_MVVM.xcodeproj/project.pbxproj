@@ -29,7 +29,6 @@
 		3B6D4B56235ADA29004FDE77 /* PhotoApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B55235ADA29004FDE77 /* PhotoApiService.swift */; };
 		3B6D4B58235ADA4F004FDE77 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B57235ADA4F004FDE77 /* PhotoViewModel.swift */; };
 		3B6D4B5A235ADA5E004FDE77 /* PhotoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B59235ADA5E004FDE77 /* PhotoDataSource.swift */; };
-		3B6D4B5C235ADAE6004FDE77 /* UIImageViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B5B235ADAE6004FDE77 /* UIImageViewExt.swift */; };
 		3BA00813235C62B500B2915C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA00812235C62B500B2915C /* ActivityView.swift */; };
 		3BA00856235F030200B2915C /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA00855235F030200B2915C /* ImageDownloader.swift */; };
 		3BB6A828235AF24F00D776FE /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6A827235AF24F00D776FE /* PhotoData.swift */; };
@@ -82,7 +81,6 @@
 		3B6D4B55235ADA29004FDE77 /* PhotoApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoApiService.swift; sourceTree = "<group>"; };
 		3B6D4B57235ADA4F004FDE77 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 		3B6D4B59235ADA5E004FDE77 /* PhotoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDataSource.swift; sourceTree = "<group>"; };
-		3B6D4B5B235ADAE6004FDE77 /* UIImageViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExt.swift; sourceTree = "<group>"; };
 		3BA00812235C62B500B2915C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		3BA00855235F030200B2915C /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		3BB6A827235AF24F00D776FE /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
@@ -210,7 +208,6 @@
 			children = (
 				3B6D4B44235AD8C5004FDE77 /* FetchDataController.swift */,
 				3B6D4B46235AD8FD004FDE77 /* InternetMonitor.swift */,
-				3B6D4B5B235ADAE6004FDE77 /* UIImageViewExt.swift */,
 				3BB6A829235AF28D00D776FE /* ParserHelper.swift */,
 				3B53A100235C393000C37CED /* Observable.swift */,
 				3BB6A827235AF24F00D776FE /* PhotoData.swift */,
@@ -401,7 +398,6 @@
 				3B6D4B4E235AD989004FDE77 /* RequestService.swift in Sources */,
 				3B6D4B05235AD388004FDE77 /* PhotoViewController.swift in Sources */,
 				3B6D4B01235AD388004FDE77 /* AppDelegate.swift in Sources */,
-				3B6D4B5C235ADAE6004FDE77 /* UIImageViewExt.swift in Sources */,
 				3B6D4B45235AD8C5004FDE77 /* FetchDataController.swift in Sources */,
 				3B6D4B56235ADA29004FDE77 /* PhotoApiService.swift in Sources */,
 				3B6D4B5A235ADA5E004FDE77 /* PhotoDataSource.swift in Sources */,
