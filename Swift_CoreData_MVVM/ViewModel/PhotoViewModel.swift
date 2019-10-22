@@ -76,7 +76,11 @@ class PhotoViewModel {
         photoEntity.author = dictionary["author"] as? String
         photoEntity.tags = dictionary["tags"] as? String
         let mediaDictionary = dictionary["media"] as? [String: Any]
-        photoEntity.mediaURL = mediaDictionary?["m"] as? String
+        let mediaUrlString = mediaDictionary?["m"] as? String
+        let imageDownloader = ImageDownloader(url: mediaUrlString)
+        imageDownloader.startDownloadImage(completeDownload: { (imageData) in
+          photoEntity.imageData = imageData
+        })
       }
     })
   }

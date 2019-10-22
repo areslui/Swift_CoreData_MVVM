@@ -27,8 +27,10 @@ class ExpandableCell: UICollectionViewCell, Expandable {
   func setPhotoCellWith(photo: Photo) {
     authorLabel.text = photo.author
     tagsLabel.text = photo.tags
-    if let url = photo.mediaURL {
-      photoImageview.loadImageUsingCacheWithURLString(url, placeHolder: UIImage(named: "placeholder"))
+    if let imageData = photo.imageData {
+      photoImageview.image = UIImage(data: imageData)
+    } else {
+      photoImageview.image = UIImage(named: "placeholder")
     }
   }
   
