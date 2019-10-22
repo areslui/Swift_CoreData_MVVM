@@ -33,7 +33,7 @@ class PhotoViewController: UICollectionViewController {
     
     // for test
     view.accessibilityIdentifier = "onboardingView"
-    collectionView.accessibilityIdentifier = "onboardingTableView"
+    collectionView.accessibilityIdentifier = "onboardingCollectionView"
     
     initView()
     initBinding()
