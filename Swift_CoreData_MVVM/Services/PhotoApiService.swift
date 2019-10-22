@@ -32,10 +32,3 @@ final class PhotoApiService: RequestHandler, PhotoApiServiceProtocol {
     task = nil
   }
 }
-
-final class MockPhotoApiService: PhotoApiServiceProtocol {
-  
-  func getDataWith(completion: @escaping (Result<PhotoData, ErrorResult>) -> Void) {
-    
-  }
-}

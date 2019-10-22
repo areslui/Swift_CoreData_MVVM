@@ -29,25 +29,11 @@ class PhotoViewController: UICollectionViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // for test
-    view.accessibilityIdentifier = "onboardingView"
-    collectionView.accessibilityIdentifier = "onboardingTableView"
-    
     initView()
     initBinding()
-    start()
     viewModel.dataSource?.fetchDataController?.fetchHandler?.delegate = self
     errorHandler()
-  }
-  
-  func start() {
-    viewModel.isLoading.value = true
-    viewModel.isCollectionViewHidden.value = true
-    updateTableContent { [weak self] in
-      self?.viewModel.isLoading.value = false
-      self?.viewModel.isCollectionViewHidden.value = false
-    }
+    updateTableContent()
   }
   
   func initView() {
@@ -67,27 +53,10 @@ class PhotoViewController: UICollectionViewController {
     }
   }
   
-  private func updateTableContent(completion: @escaping () -> ()) {
-    
+  private func updateTableContent() {
     viewModel.performFetch()
-    
-    InternetMonitor().checkInternetConnection(completion: { result in
-      
-      switch result {
-      case .Success(let hasInternet):
-        if hasInternet {
-          self.viewModel.fetchPhotoData(completion: { (success) in
-            if success {
-              self.reloadCollectionViewInMainThread()
-            }
-          })
-        }
-      case .Error(let error):
-        if let errorHandler = self.viewModel.errorHandling {
-          errorHandler(error)
-        }
-      }
-      completion()
+    self.viewModel.fetchPhotoData(completion: {
+      self.reloadCollectionViewInMainThread()
     })
   }
   
@@ -187,7 +156,7 @@ extension PhotoViewController: NSFetchedResultsControllerDelegate {
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     collectionView.performBatchUpdates({
       self.blockOperations.forEach { $0.start() }
-    }, completion: { finished in
+    }, completion: { (finished) in
       self.blockOperations.removeAll(keepingCapacity: false)
     })
   }

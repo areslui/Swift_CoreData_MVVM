@@ -12,9 +12,8 @@ import UIKit
 
 class PhotoViewModel {
     
-  var dataSource: PhotoDataSource?
   private var apiService: PhotoApiServiceProtocol?
-  var checkInternetHandling: ((Bool?) -> Void)?
+  var dataSource: PhotoDataSource?
   var errorHandling: ((ErrorResult?) -> Void)?
   let isLoading = Observable<Bool>(value: false)
   let isCollectionViewHidden = Observable<Bool>(value: false)
@@ -25,24 +24,30 @@ class PhotoViewModel {
     self.apiService = apiService
   }
   
-  func fetchPhotoData(completion: @escaping (_ sucess: Bool) -> ()) {
+  func fetchPhotoData(completion: @escaping () -> ()) {
     guard let service = apiService else {
       errorHandling?(.custom(string: "Sevice missing!!!"))
       return
     }
-    service.getDataWith { (result) in
+    isLoading.value = true
+    isCollectionViewHidden.value = true
+    
+    service.getDataWith { [weak self] (result) in
+      
       switch result {
       case .Success(let data):
-        self.clearData()
-        self.saveInCoreDataWith(array: data.photoArray)
-        completion(true)
+        self?.clearData()
+        self?.saveInCoreDataWith(array: data.photoArray)
+        completion()
+        
       case .Error(let message):
         DispatchQueue.main.async {
-          self.errorHandling?(message)
-          print(message)
-          completion(false)
+          self?.errorHandling?(message)
+          debugPrint("\(type(of: self)): \(#function): \(message)")
         }
       }
+      self?.isLoading.value = false
+      self?.isCollectionViewHidden.value = false
     }
   }
   
@@ -70,7 +75,11 @@ class PhotoViewModel {
         photoEntity.author = dictionary["author"] as? String
         photoEntity.tags = dictionary["tags"] as? String
         let mediaDictionary = dictionary["media"] as? [String: Any]
-        photoEntity.mediaURL = mediaDictionary?["m"] as? String
+        let mediaUrlString = mediaDictionary?["m"] as? String
+        let imageDownloader = ImageDownloader(url: mediaUrlString)
+        imageDownloader.startDownloadImage(completeDownload: { (imageData) in
+          photoEntity.imageData = imageData
+        })
       }
     })
   }
