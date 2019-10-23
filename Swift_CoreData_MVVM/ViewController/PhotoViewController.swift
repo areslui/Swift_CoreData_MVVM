@@ -36,11 +36,11 @@ class PhotoViewController: UICollectionViewController {
     updateTableContent()
   }
   
-  func initView() {
+  private func initView() {
     view.backgroundColor = .white
   }
   
-  func initBinding() {
+  private func initBinding() {
     viewModel.isCollectionViewHidden.addObserver { [weak self] (isHidden) in
       self?.collectionView.isHidden = isHidden
     }
