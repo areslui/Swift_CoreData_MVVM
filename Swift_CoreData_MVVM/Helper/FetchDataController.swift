@@ -16,7 +16,10 @@ struct FetchDataController {
     
     // sort contents by author's name
     fetchRequest.sortDescriptors = [NSSortDescriptor(key: "author", ascending: true)]
-    let dataFetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: ((UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext)!, sectionNameKeyPath: nil, cacheName: nil)
+    guard let viewContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
+      return NSFetchedResultsController()
+    }
+    let dataFetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: viewContext, sectionNameKeyPath: nil, cacheName: nil)
     
     return dataFetchResultController
   }()

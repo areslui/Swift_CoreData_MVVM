@@ -92,7 +92,9 @@ class PhotoViewController: UICollectionViewController {
   // MARK: - CollectionView DataSource
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableCell", for: indexPath) as! ExpandableCell
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableCell", for: indexPath) as? ExpandableCell else {
+      return UICollectionViewCell()
+    }
     if let photo = viewModel.fetchObjectAtIndex(index: indexPath) {
       cell.setPhotoCellWith(photo: photo)
     }
