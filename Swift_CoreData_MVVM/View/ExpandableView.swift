@@ -47,11 +47,16 @@ class ExpandableView {
       
       controller.collectionView.isScrollEnabled = false
       
-      let selectedCell = controller.collectionView.cellForItem(at: indexPath)! as! ExpandableCell
+      guard let selectedCell = controller.collectionView.cellForItem(at: indexPath) as? ExpandableCell else {
+        debugPrint("\(type(of: self)): \(#function): selected cell error!")
+        return
+      }
       let frameOfSelectedCell = selectedCell.frame
       
       expandedCell = selectedCell
-      hiddenCells = controller.collectionView.visibleCells.map { $0 as! ExpandableCell }.filter { $0 != selectedCell }
+      hiddenCells = controller.collectionView.visibleCells
+        .map { $0 as! ExpandableCell }
+        .filter { $0 != selectedCell }
       
       animator.addAnimations {
         selectedCell.expand(in: controller.collectionView)
