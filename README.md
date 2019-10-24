@@ -1,5 +1,5 @@
 # Swift_CoreData_MVVM
 
-If you want to embed images, this is how you do it:
+Below is the structure of the app and to do list:
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![Image of README](https://github.com/areslui/Swift_CoreData_MVVM/blob/master/README.png)
