@@ -21,7 +21,7 @@
 		3B6D4B38235AD520004FDE77 /* ExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B37235AD520004FDE77 /* ExpandableCell.swift */; };
 		3B6D4B45235AD8C5004FDE77 /* FetchDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B44235AD8C5004FDE77 /* FetchDataController.swift */; };
 		3B6D4B47235AD8FD004FDE77 /* InternetMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B46235AD8FD004FDE77 /* InternetMonitor.swift */; };
-		3B6D4B4C235AD94C004FDE77 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B4B235AD94C004FDE77 /* RequestHandler.swift */; };
+		3B6D4B4C235AD94C004FDE77 /* NetWorkResultProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B4B235AD94C004FDE77 /* NetWorkResultProtocol.swift */; };
 		3B6D4B4E235AD989004FDE77 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B4D235AD989004FDE77 /* RequestService.swift */; };
 		3B6D4B50235AD9BB004FDE77 /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B4F235AD9BB004FDE77 /* RequestFactory.swift */; };
 		3B6D4B52235AD9E2004FDE77 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D4B51235AD9E2004FDE77 /* Result.swift */; };
@@ -80,7 +80,7 @@
 		3B6D4B37235AD520004FDE77 /* ExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableCell.swift; sourceTree = "<group>"; };
 		3B6D4B44235AD8C5004FDE77 /* FetchDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDataController.swift; sourceTree = "<group>"; };
 		3B6D4B46235AD8FD004FDE77 /* InternetMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetMonitor.swift; sourceTree = "<group>"; };
-		3B6D4B4B235AD94C004FDE77 /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
+		3B6D4B4B235AD94C004FDE77 /* NetWorkResultProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkResultProtocol.swift; sourceTree = "<group>"; };
 		3B6D4B4D235AD989004FDE77 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		3B6D4B4F235AD9BB004FDE77 /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		3B6D4B51235AD9E2004FDE77 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -245,7 +245,7 @@
 		3B6D4B49235AD92F004FDE77 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				3B6D4B4B235AD94C004FDE77 /* RequestHandler.swift */,
+				3B6D4B4B235AD94C004FDE77 /* NetWorkResultProtocol.swift */,
 				3B6D4B4D235AD989004FDE77 /* RequestService.swift */,
 				3B6D4B4F235AD9BB004FDE77 /* RequestFactory.swift */,
 			);
@@ -437,7 +437,7 @@
 				3B6D4B56235ADA29004FDE77 /* PhotoApiService.swift in Sources */,
 				3B6D4B5A235ADA5E004FDE77 /* PhotoDataSource.swift in Sources */,
 				3B53A101235C393000C37CED /* Observable.swift in Sources */,
-				3B6D4B4C235AD94C004FDE77 /* RequestHandler.swift in Sources */,
+				3B6D4B4C235AD94C004FDE77 /* NetWorkResultProtocol.swift in Sources */,
 				3BA00813235C62B500B2915C /* ActivityView.swift in Sources */,
 				3B6D4B03235AD388004FDE77 /* SceneDelegate.swift in Sources */,
 				3BA00854235ECC6C00B2915C /* ExpandableView.swift in Sources */,
