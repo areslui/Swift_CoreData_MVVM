@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol PhotoApiServiceProtocol: class {
+  func getDataWith(completion: @escaping (Result<PhotoData, ErrorResult>) -> Void)
+}
+
 protocol NetWorkResultProtocol {
   func networkResult<T: Parsable>(completion: @escaping ((Result<T, ErrorResult>) -> Void)) ->
   ((Result<Data, ErrorResult>) -> Void)
