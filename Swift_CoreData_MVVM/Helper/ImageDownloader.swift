@@ -20,9 +20,9 @@ class ImageDownloader {
   func startDownloadImage(completeDownload: ((Data?) -> ())?) {
     let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30)
     URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-      print("RESPONSE FROM API: \(String(describing: response))")
+      debugPrint("RESPONSE FROM API: \(String(describing: response))")
       if error != nil {
-        print("ERROR LOADING IMAGES FROM URL: \(String(describing: error))")
+        debugPrint("ERROR LOADING IMAGES FROM URL: \(String(describing: error))")
         return
       }
       DispatchQueue.main.async {
