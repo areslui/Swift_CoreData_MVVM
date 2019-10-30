@@ -33,7 +33,7 @@ class PhotoViewController: UICollectionViewController {
     initBinding()
     viewModel.dataSource?.fetchDataController?.fetchHandler?.delegate = self
     errorHandler()
-    updateTableContent()
+    updateTableContent() // not good for testing...
   }
   
   private func initView() {
@@ -55,8 +55,12 @@ class PhotoViewController: UICollectionViewController {
   
   private func updateTableContent() {
     viewModel.performFetch()
-    self.viewModel.fetchPhotoData(completion: {
-      self.reloadCollectionViewInMainThread()
+    self.viewModel.fetchPhotoData(completion: { [weak self] (success) in
+      if success {
+        self?.reloadCollectionViewInMainThread()
+      } else {
+        debugPrint("\(type(of: self)): \(#function): fetch photo data failed!")
+      }
     })
   }
   

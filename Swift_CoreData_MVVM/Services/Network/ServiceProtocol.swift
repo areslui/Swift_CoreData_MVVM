@@ -16,3 +16,8 @@ protocol NetWorkResultProtocol {
   func networkResult<T: Parsable>(completion: @escaping ((Result<T, ErrorResult>) -> Void)) ->
   ((Result<Data, ErrorResult>) -> Void)
 }
+
+protocol Parsable {
+  static func parseObject(dictionary: [String: Any]) -> Result<Self, ErrorResult>
+}
+

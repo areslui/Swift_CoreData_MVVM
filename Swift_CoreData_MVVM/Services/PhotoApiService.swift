@@ -24,15 +24,11 @@ final class PhotoApiService: PhotoApiServiceProtocol, NetWorkResultProtocol {
   func networkResult<T>(completion: @escaping ((Result<T, ErrorResult>) -> Void)) -> ((Result<Data, ErrorResult>) -> Void) where T : Parsable {
     
     return { dataResult in
-      
       DispatchQueue.global(qos: .background).async(execute: {
-        
         switch dataResult {
-          
         case .Success(let data) :
           ParserHelper.parse(data: data, completion: completion)
           break
-          
         case .Error(let error) :
           debugPrint("\(type(of: self)): \(#function): Network error \(error)")
           completion(.Error(.network(string: "Network error " + error.localizedDescription)))
