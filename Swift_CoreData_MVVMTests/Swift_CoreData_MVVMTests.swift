@@ -22,32 +22,40 @@ class Swift_CoreData_MVVMTests: XCTestCase {
     viewController = nil
     super.tearDown()
   }
-}
-
-final class MockPhotoApiService: PhotoApiServiceProtocol {
   
-  func getDataWith(completion: @escaping (Result<PhotoData, ErrorResult>) -> Void) {
-    DispatchQueue.global().async {
-      usleep(1000000 + (arc4random() % 9)*100000)
-      var dataAry = [[String: Any]]()
-      for var i in 0...20 {
-        let images = ["sample1", "sample2", "sample3", "sample4", "sample5", "sample6"]
-        let idx = Int(arc4random()) % images.count
-        let randName = images[idx]
-        let image = UIImage(contentsOfFile: Bundle.main.path(forResource: randName, ofType: "jpg")!)
-        guard let imagedata = image?.jpegData(compressionQuality: 1) else {
-          debugPrint("\(type(of: self)): \(#function): image to data error!")
-          return
-        }
-        let randomDict = ["author": String.anyName, "tag": String.loremIpsum, "imageData": imagedata] as [String : Any]
-        dataAry.append(randomDict)
-        i += 1
-      }
-      let photoData = PhotoData(photoArray: dataAry)
-      completion(.Success(photoData))
-    }
+  func testMockObjectsAssignToUI() {
+    // given
+    
+    // when
+    
+    // then
   }
 }
+
+//final class MockPhotoApiService: PhotoApiServiceProtocol {
+//
+//  func getDataWith(completion: @escaping (Result<PhotoData, ErrorResult>) -> Void) {
+//    DispatchQueue.global().async {
+//      usleep(1000000 + (arc4random() % 9)*100000)
+//      var dataAry = [[String: Any]]()
+//      for var i in 0...20 {
+//        let images = ["sample1", "sample2", "sample3", "sample4", "sample5", "sample6"]
+//        let idx = Int(arc4random()) % images.count
+//        let randName = images[idx]
+//        let image = UIImage(contentsOfFile: Bundle.main.path(forResource: randName, ofType: "jpg")!)
+//        guard let imagedata = image?.jpegData(compressionQuality: 1) else {
+//          debugPrint("\(type(of: self)): \(#function): image to data error!")
+//          return
+//        }
+//        let randomDict = ["author": String.anyName, "tag": String.loremIpsum, "imageData": imagedata] as [String : Any]
+//        dataAry.append(randomDict)
+//        i += 1
+//      }
+//      let photoData = PhotoData(photoArray: dataAry)
+//      completion(.Success(photoData))
+//    }
+//  }
+//}
 
 public extension String {
   /// Ramdomly generated text
