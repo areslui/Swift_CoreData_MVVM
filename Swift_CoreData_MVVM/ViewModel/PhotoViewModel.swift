@@ -24,7 +24,7 @@ class PhotoViewModel {
     self.apiService = apiService
   }
   
-  func fetchPhotoData(completion: @escaping () -> ()) {
+  func fetchPhotoData(completion: @escaping (Bool) -> ()) {
     guard let service = apiService else {
       errorHandling?(.custom(string: "Sevice missing!!!"))
       return
@@ -38,11 +38,12 @@ class PhotoViewModel {
       case .Success(let data):
         self?.clearData()
         self?.saveInCoreDataWith(array: data.photoArray)
-        completion()
+        completion(true)
         
       case .Error(let message):
         DispatchQueue.main.async {
           self?.errorHandling?(message)
+          completion(false)
           debugPrint("\(type(of: self)): \(#function): \(message)")
         }
       }

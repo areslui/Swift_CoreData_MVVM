@@ -33,14 +33,14 @@ class PhotoViewController: UICollectionViewController {
     initBinding()
     viewModel.dataSource?.fetchDataController?.fetchHandler?.delegate = self
     errorHandler()
-    updateTableContent()
+    updateTableContent() // not good for testing...
   }
   
-  func initView() {
+  private func initView() {
     view.backgroundColor = .white
   }
   
-  func initBinding() {
+  private func initBinding() {
     viewModel.isCollectionViewHidden.addObserver { [weak self] (isHidden) in
       self?.collectionView.isHidden = isHidden
     }
@@ -55,8 +55,12 @@ class PhotoViewController: UICollectionViewController {
   
   private func updateTableContent() {
     viewModel.performFetch()
-    self.viewModel.fetchPhotoData(completion: {
-      self.reloadCollectionViewInMainThread()
+    self.viewModel.fetchPhotoData(completion: { [weak self] (success) in
+      if success {
+        self?.reloadCollectionViewInMainThread()
+      } else {
+        debugPrint("\(type(of: self)): \(#function): fetch photo data failed!")
+      }
     })
   }
   
@@ -92,7 +96,9 @@ class PhotoViewController: UICollectionViewController {
   // MARK: - CollectionView DataSource
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableCell", for: indexPath) as! ExpandableCell
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExpandableCell", for: indexPath) as? ExpandableCell else {
+      return UICollectionViewCell()
+    }
     if let photo = viewModel.fetchObjectAtIndex(index: indexPath) {
       cell.setPhotoCellWith(photo: photo)
     }
